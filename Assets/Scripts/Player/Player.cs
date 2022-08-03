@@ -1,0 +1,35 @@
+﻿using System.Collections;
+using UnityEngine;
+using FishNet.Connection;
+using FishNet.Object;
+
+[RequireComponent(typeof(PlayerStatistics))]  
+public class Player : NetworkBehaviour
+{
+    //public static Player Instance { get; private set; }
+    public string userName { get; private set; }   
+    public PlayerStatistics PlayerStatistics { get; private set; }  
+
+    //[field: SerializeField]
+    //public GameSession Session { get; private set; }    
+    public string Tag { get; private set; }
+
+    private void Awake()
+    {
+        PlayerStatistics = GetComponent<PlayerStatistics>();
+    }
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (base.IsOwner)
+        {
+            Tag = this.Owner.ClientId.ToString();  
+            GameSession.Instance.RegisterPlayer(Tag, this);
+            //Lobby.Instance.AddPlayerToLobby(this.GetComponent<Player>());
+        }
+        {
+            gameObject.GetComponent<Player>().enabled = false;
+        }
+    }
+
+}
