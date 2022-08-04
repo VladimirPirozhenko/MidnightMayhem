@@ -5,10 +5,10 @@ public struct PlayerScoreboardCardData
 {
     public string playerName;
     public string playerScore;
-    public PlayerScoreboardCardData(string name,string score)
+    public PlayerScoreboardCardData(Player player)
     {
-        playerName = name;
-        playerScore = score;    
+        playerName = player.Owner.ClientId.ToString();
+        playerScore = player.PlayerStatistics.Score.ToString();    
     }
 }
 

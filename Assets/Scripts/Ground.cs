@@ -26,8 +26,10 @@ public class Ground : MonoBehaviour
             Player player;
             if (GameSession.Instance.TryGetPlayerByTag(box.Tag,out player))
             {
-                PlayerStatistics playerStatistics = player.GetComponent<PlayerStatistics>();
+                PlayerStatistics playerStatistics = player.PlayerStatistics;
                 playerStatistics.ServerAddScore(1);
+                ViewManager.Instance.TryGetView<ScoreboardView>(out ScoreboardView scoreboardView);
+                scoreboardView.UpdateView(player.Tag);
                 box.gameObject.SetActive(false);
             }
         }

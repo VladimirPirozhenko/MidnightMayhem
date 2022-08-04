@@ -25,6 +25,11 @@ public class Player : NetworkBehaviour
         {
             Tag = this.Owner.ClientId.ToString();  
             GameSession.Instance.RegisterPlayer(Tag, this);
+            ViewManager.Instance.InitAllViews();
+            ViewManager.Instance.TryGetView(out ScoreboardView scoreboardView);
+            scoreboardView.AddPlayerCard(this);
+            scoreboardView.Show(false);
+            scoreboardView.gameObject.SetActive(false); 
             //Lobby.Instance.AddPlayerToLobby(this.GetComponent<Player>());
         }
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using FishNet.Object;
+using System.Collections;
 using UnityEngine;
 
 public abstract class BaseView : MonoBehaviour

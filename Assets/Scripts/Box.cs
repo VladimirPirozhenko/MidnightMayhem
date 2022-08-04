@@ -21,7 +21,7 @@ public class Box : NetworkBehaviour
         {
             //this.Player = player;
             //ConnectionOwner = player.Owner;
-            Tag = player.Owner.ClientId.ToString(); 
+            Tag = player.Tag; 
             //Debug.Log("Owner of " + this.ToString() + "  " + ConnectionOwner.ClientId);
         }
     }

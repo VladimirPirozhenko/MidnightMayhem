@@ -30,21 +30,10 @@ public class GameSession : NetworkBehaviour
     {
         players.Add(clientId, player);
     }
-
-    //[ServerRpc]
-    //public bool TryGetPlayerByTagServer(string tag, out Player player)
-    //{
-    //    if (TryGetPlayerByTag(tag, out player))
-    //    {
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        return false;
-    //    }
-    //}
-
-    //[ObserversRpc]
+    public SyncDictionary<string, Player> GetPlayersDict()
+    {
+        return players;
+    }
     public bool TryGetPlayerByTag(string tag,out Player player)
     {
         if (players.TryGetValue(tag, out player))

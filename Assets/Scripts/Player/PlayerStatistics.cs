@@ -23,17 +23,18 @@ public class PlayerStatistics : NetworkBehaviour
     //    set;
     //}
     //[SerializeField] private GameObject cardPrefab;
-    [SerializeField] private int score;
+    [field: SerializeField] public int Score { get; private set; }
     [SerializeField] private TMP_Text scoreText;
     public override void OnStartClient()
     {
         base.OnStartClient();
         scoreText.gameObject.SetActive(false);
-        this.GetComponentInChildren<VerticalLayoutGroup>().gameObject.SetActive(false); 
+        //this.GetComponentInChildren<VerticalLayoutGroup>().gameObject.SetActive(false); 
         if (!IsOwner)
             return;
-        ViewManager.Instance.InitAllViews();
-        scoreText.text = score.ToString();
+
+        scoreText.text = Score.ToString();
+        
         scoreText.gameObject.SetActive(true);
         //this.GetComponentInChildren<VerticalLayoutGroup>().gameObject.SetActive(true);
         //var playerCards = new List<GameObject>(12);
@@ -54,6 +55,14 @@ public class PlayerStatistics : NetworkBehaviour
             return;
         if (Input.GetKeyUp(KeyCode.Space))
              TargetAddScore(Owner,1);
+        // if (Input.GetKeyDown(KeyCode.Tab))
+        //     ViewManager.Instance.Show<ScoreboardView>(true);
+        if (Input.GetKeyDown(KeyCode.Tab))
+            ViewManager.Instance.Show<ScoreboardView>(true);
+        if (Input.GetKeyUp(KeyCode.Tab))
+            ViewManager.Instance.Show<ScoreboardView>(false);
+        //scoreboardView.Show(false);
+        //scoreboardView.gameObject.SetActive(false);
     }
     [ServerRpc]
     public void ServerAddScore(int amount)
@@ -67,8 +76,8 @@ public class PlayerStatistics : NetworkBehaviour
         //if (!IsOwner)
         //    return;
         //this.GiveOwnership(LocalConnection);    // gives object ownership to the client that calls the method
-        score += amount;
-        scoreText.text = score.ToString();
+        Score += amount;
+        scoreText.text = Score.ToString();
        // ScoreboardViewData scoreViewData = new ScoreboardViewData(Score.ToString());
         //scoreView.UpdateView(scoreViewData);
         //OnScoreChanged?.Invoke(score);
@@ -79,8 +88,9 @@ public class PlayerStatistics : NetworkBehaviour
         //if (!IsOwner)
         //    return;
         //this.GiveOwnership(LocalConnection);    // gives object ownership to the client that calls the method
-        score += amount;
-        scoreText.text = score.ToString();
+        Score += amount;
+        scoreText.text = Score.ToString();
+
         // ScoreboardViewData scoreViewData = new ScoreboardViewData(Score.ToString());
         //scoreView.UpdateView(scoreViewData);
         //OnScoreChanged?.Invoke(score);
