@@ -13,9 +13,10 @@ public class ConnectionView : BaseView
 	//[SerializeField] private TMP_InputField usernameText;
 	[SerializeField] private TMP_InputField ipInput;
 	[SerializeField] private TMP_InputField portInput;
+
+
 	public override void Init()
-	{
-		base.Init();	
+	{			
 		hostButton.onClick.AddListener(() =>
 		{
 			//SaveUsername();
@@ -32,6 +33,7 @@ public class ConnectionView : BaseView
 			SetPort();
 			InstanceFinder.ClientManager.StartConnection();
 		});
+		base.Init();
 	}
 	private void SetIP()
 	{

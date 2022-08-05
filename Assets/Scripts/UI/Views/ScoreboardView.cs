@@ -1,18 +1,19 @@
 ﻿using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public struct ScoreboardViewData 
-{
-    public string scoreText;
-    public ScoreboardViewData(string text)
-    {
-        scoreText = text;   
-    }
-}
+//public struct ScoreboardViewData 
+//{
+//    public string scoreText;
+//    public ScoreboardViewData(string text)
+//    {
+//        scoreText = text;   
+//    }
+//}
 public class ScoreboardView : BaseView
 {
     [SerializeField] PlayerScoreboardCard cardPrefab;
@@ -22,35 +23,35 @@ public class ScoreboardView : BaseView
         base.Init();
         this.gameObject.SetActive(false);
         Show(false);
-        //var players = GameSession.Instance.GetPlayersDict();
-        //foreach (var player in players)
-        //{
-        //    PlayerScoreboardCardData cardData = new PlayerScoreboardCardData(player.Value);
-        //    PlayerScoreboardCard playerScoreboardCard = Instantiate(cardPrefab);
-        //    playerScoreboardCard.UpdateCard(cardData);  
-        //    playerCards.Add(player.Key, playerScoreboardCard);
-        //}
     }
-    //[ServerRpc]
-    public void AddPlayerCardServer(Player player)
+    public void RefreshPlayerCards(Player[] players)
     {
-        AddPlayerCard(player);
+
+        foreach (var player in players)
+        {
+            PlayerScoreboardCardData cardData = new PlayerScoreboardCardData(player.Tag, player.PlayerStatistics.Score.ToString());
+            //player.Value.AddPlayerCard(cardData);
+           // ViewManager.Instance.TryGetView(out ScoreboardView scoreboardView);
+            AddPlayerCard(cardData);
+            Show(false);
+            gameObject.SetActive(false);
+        }
     }
-    //[ObserversRpc(BufferLast = true)]
-    public void AddPlayerCard(Player player)
+       
+    public void AddPlayerCard(PlayerScoreboardCardData cardData)
     {
-        PlayerScoreboardCardData cardData = new PlayerScoreboardCardData(player);
+        if (playerCards.ContainsKey(cardData.playerName))
+            return;
         PlayerScoreboardCard playerScoreboardCard = Instantiate(cardPrefab);
-        //Transform parentForCards = this.GetComponentInChildren<VerticalLayoutGroup>().transform;
         playerScoreboardCard.transform.SetParent(this.transform, false);
-        playerScoreboardCard.UpdateCard(cardData);  
-        playerCards.Add(player.Tag, playerScoreboardCard);
+        playerScoreboardCard.UpdateCard(cardData);   
+        playerCards.Add(cardData.playerName, playerScoreboardCard);
     }
-    public void UpdateView(string viewTag)
+    public void UpdateView(PlayerScoreboardCardData cardData)
     {
-        playerCards.TryGetValue(viewTag, out PlayerScoreboardCard card);
-        GameSession.Instance.TryGetPlayerByTag(viewTag,out Player player);
-        PlayerScoreboardCardData cardData = new PlayerScoreboardCardData(player);
+        playerCards.TryGetValue(cardData.playerName, out PlayerScoreboardCard card);
+        //GameSession.Instance.TryGetPlayerByTag(viewTag,out Player player);
+        //PlayerScoreboardCardData cardData = new PlayerScoreboardCardData(player);
         card.UpdateCard(cardData);
         //
         //foreach (var card in playerCards)

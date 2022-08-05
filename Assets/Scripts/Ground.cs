@@ -3,20 +3,8 @@ using System.Collections;
 using UnityEngine;
 
 
-public class Ground : MonoBehaviour
+public class Ground : NetworkBehaviour
 {
-    //[SerializeField] PlayerStatistics playerStatistics;
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent(out Box box))
@@ -27,11 +15,17 @@ public class Ground : MonoBehaviour
             if (GameSession.Instance.TryGetPlayerByTag(box.Tag,out player))
             {
                 PlayerStatistics playerStatistics = player.PlayerStatistics;
+                //if (!IsOwner)
                 playerStatistics.ServerAddScore(1);
-                ViewManager.Instance.TryGetView<ScoreboardView>(out ScoreboardView scoreboardView);
-                scoreboardView.UpdateView(player.Tag);
+                //ViewManager.Instance.TryGetView<ScoreboardView>(out ScoreboardView scoreboardView);
+                PlayerScoreboardCardData cardData = new PlayerScoreboardCardData(player.Tag, playerStatistics.Score.ToString());
+                //GameSession.Instance.UpdatePlayerCardsRpc();
+                GameSession.Instance.RefreshCardRpc(cardData);
+               
+                //scoreboardView.UpdateView(scoreboardData);
                 box.gameObject.SetActive(false);
             }
         }
     }
+    
 }

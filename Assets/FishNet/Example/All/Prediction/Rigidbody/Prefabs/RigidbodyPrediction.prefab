@@ -55,7 +55,6 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -80,7 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &303449598114786579
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NetworkObserver: {fileID: 0}
-  _prefabId: 1
+  _prefabId: 14
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects:
@@ -168,13 +166,11 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 201277551}
   - {fileID: 2286220694416623513}
-  - {fileID: 0}
   SceneTransformProperties:
     Position: {x: -4.80351, y: 0.18147132, z: 5.430528}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
-  _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
 --- !u!54 &201277549
 Rigidbody:
@@ -209,10 +205,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 201277550}
   _graphicalObject: {fileID: 303449599178274091}
   _smoothTicks: 1
-  _durationType: 0
   _smoothingDuration: 0.05
-  _enableTeleport: 0
-  _teleportThreshold: 1
   _predictionType: 1
   _rigidbody: {fileID: 201277549}
   _rigidbody2d: {fileID: 0}
@@ -273,7 +266,6 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -298,7 +290,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &303449598691742042
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +345,6 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -379,7 +369,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &303449599178274092
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +427,6 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -463,4 +451,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}

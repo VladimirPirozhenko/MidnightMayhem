@@ -5,10 +5,10 @@ public struct PlayerScoreboardCardData
 {
     public string playerName;
     public string playerScore;
-    public PlayerScoreboardCardData(Player player)
+    public PlayerScoreboardCardData(string playerName,string playerScore)
     {
-        playerName = player.Owner.ClientId.ToString();
-        playerScore = player.PlayerStatistics.Score.ToString();    
+        this.playerName = playerName;
+        this.playerScore = playerScore;    
     }
 }
 
@@ -20,5 +20,6 @@ public class PlayerScoreboardCard : MonoBehaviour
     {
         playerName.text = data.playerName;
         playerScore.text = data.playerScore;    
+        //Debug.Log("Card updated playerTag: " + data.playerName + " Score: "  + data.playerScore);
     }
 }

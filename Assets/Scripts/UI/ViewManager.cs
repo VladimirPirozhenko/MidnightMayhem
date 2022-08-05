@@ -41,13 +41,10 @@ public class ViewManager : MonoBehaviour
     {
         foreach (var view in views)
         { 
-            //if (isActive)
-            //{
-                if (view is T)
-                {
-                    view.Show(isActive);
-                }
-           // }   
+            if (view is T)
+            {
+                view.Show(isActive);
+            } 
         }
     }
     public bool TryGetView<T>(out T baseView) where T : BaseView

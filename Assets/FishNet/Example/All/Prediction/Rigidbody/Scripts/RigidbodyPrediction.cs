@@ -138,7 +138,7 @@ namespace FishNet.Example.Prediction.Rigidbodies
         private void Move(MoveData md, bool asServer, bool replaying = false)
         {
             //Add extra gravity for faster falls.
-            Vector3 forces = new Vector3(md.Horizontal, Physics.gravity.y, md.Vertical) * _moveRate * (float)TimeManager.TickDelta;
+            Vector3 forces = new Vector3(md.Horizontal, Physics.gravity.y, md.Vertical) * _moveRate;
             _rigidbody.AddForce(forces);
 
             if (md.Jump)

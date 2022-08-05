@@ -23,7 +23,7 @@ public class PlayerStatistics : NetworkBehaviour
     //    set;
     //}
     //[SerializeField] private GameObject cardPrefab;
-    [field: SerializeField] public int Score { get; private set; }
+    [field: SerializeField] [field: SyncVar] public int Score { get; private set; }
     [SerializeField] private TMP_Text scoreText;
     public override void OnStartClient()
     {

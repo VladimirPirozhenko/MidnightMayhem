@@ -1,10 +1,11 @@
 ﻿using FishNet.Object;
+using System;
 using System.Collections;
 using UnityEngine;
 
 public abstract class BaseView : MonoBehaviour
 {
-    public bool IsInitialized { get; private set; } 
+    public bool IsInitialized { get; private set; }
     [property: SerializeField] public string Tag { get; private set; }
     virtual public void Init()
     {
@@ -14,4 +15,7 @@ public abstract class BaseView : MonoBehaviour
     {
         gameObject.SetActive(isActive);
     }
+    // Создание,Уничтожение
+    // Show
+    // Action OnCreate
 }
