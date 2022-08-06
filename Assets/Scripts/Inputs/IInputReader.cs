@@ -8,6 +8,7 @@ public interface IInputReader
 {
     public float Horizontal { get; }
     public float Vertical { get; }
-    public void ReadInputs();
+    public void ReadMovementInputs();
+    public bool IsShowScoreboardButtonPressed();
 }
 

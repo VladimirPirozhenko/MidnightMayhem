@@ -11,18 +11,11 @@ public class Ground : NetworkBehaviour
         {
             if (box.Tag == null)
                 return;
-            Player player;
-            if (GameSession.Instance.TryGetPlayerByTag(box.Tag,out player))
+
+            if (GameSession.Instance.TryGetPlayerByTag(box.Tag,out Player player))
             {
                 PlayerStatistics playerStatistics = player.PlayerStatistics;
-                //if (!IsOwner)
                 playerStatistics.ServerAddScore(1);
-                //ViewManager.Instance.TryGetView<ScoreboardView>(out ScoreboardView scoreboardView);
-                PlayerScoreboardCardData cardData = new PlayerScoreboardCardData(player.Tag, playerStatistics.Score.ToString());
-                //GameSession.Instance.UpdatePlayerCardsRpc();
-                GameSession.Instance.RefreshCardRpc(cardData);
-               
-                //scoreboardView.UpdateView(scoreboardData);
                 box.gameObject.SetActive(false);
             }
         }

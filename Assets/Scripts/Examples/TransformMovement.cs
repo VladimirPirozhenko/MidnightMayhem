@@ -126,7 +126,7 @@ public class TransformMovement : NetworkBehaviour
     private void GatherInput(out MoveData md)
     {
         md = default;
-        inputReader.ReadInputs();
+        inputReader.ReadMovementInputs();
         float horizontal = inputReader.Horizontal;
         float vertical = inputReader.Vertical;
         if (horizontal == 0f && vertical == 0f)

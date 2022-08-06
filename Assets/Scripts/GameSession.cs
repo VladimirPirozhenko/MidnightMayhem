@@ -36,6 +36,39 @@ public class GameSession : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
+    public void UnregisterPlayerRpc(string clientId)
+    {
+        UnregisterPlayer(clientId);
+    }
+
+    [ObserversRpc(IncludeOwner = true, BufferLast = true)]
+    public void UnregisterPlayer(string clientId)
+    {
+        players.Remove(clientId);
+        RemovePlayerCardRpc(clientId);
+        UpdatePlayerCardsRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void RemovePlayerCardRpc(string cardTag)
+    {
+        RemovePlayerCard(cardTag);
+    }
+
+    [ObserversRpc(IncludeOwner = true, BufferLast = true)]
+    private void RemovePlayerCard(string cardTag)
+    {
+        ViewManager.Instance.TryGetView(out ScoreboardView scoreboardView);
+        scoreboardView.RemovePlayerCard(cardTag);
+    }
+    //[ServerRpc(RequireOwnership = false)]
+    //public void UnregisterPlayer(string clientId)
+    //{
+    //    players.Remove(clientId);
+    //    UpdatePlayerCardsRpc();
+    //}
+
+    [ServerRpc(RequireOwnership = false)]
     public void UpdatePlayerCardsRpc()
     {
         var playersDict = players.GetCollection(true);
@@ -44,25 +77,23 @@ public class GameSession : NetworkBehaviour
     }
 
     [ObserversRpc(IncludeOwner = true, BufferLast = true)]
-    public void UpdatePlayerCards(Player[] players)
+    private void UpdatePlayerCards(Player[] players)
     {
         ViewManager.Instance.TryGetView(out ScoreboardView scoreboardView);
         scoreboardView.RefreshPlayerCards(players);
     }
+
     [ServerRpc(RequireOwnership = false)]
     public void RefreshCardRpc(PlayerScoreboardCardData cardData)
     {
         RefreshCard(cardData);
     }
+
     [ObserversRpc(IncludeOwner = true, BufferLast = true)]
-    public void RefreshCard(PlayerScoreboardCardData cardData)
+    private void RefreshCard(PlayerScoreboardCardData cardData)
     {
         ViewManager.Instance.TryGetView(out ScoreboardView scoreboardView);
-        scoreboardView.UpdateView(cardData);
-    }
-    public SyncDictionary<string, Player> GetPlayersDict()
-    {
-        return players;
+        scoreboardView.RefreshPlayerCard(cardData);
     }
 
     public bool TryGetPlayerByTag(string tag,out Player player)

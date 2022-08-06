@@ -43,16 +43,16 @@ public class RigidbodyMovement : NetworkBehaviour
     #region Private
     private Rigidbody rb;
     private Camera playerCamera;
+    private IInputReader inputReader;
     #endregion
 
-    private IInputReader inputReader;
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         InstanceFinder.TimeManager.OnTick += TimeManager_OnTick;
         InstanceFinder.TimeManager.OnPostTick += TimeManager_OnPostTick;
-        //inputReader = new JoystickInputReader(joystick);
-        inputReader = new KeyboardInputReader();
+        inputReader = GetComponent<Player>().InputReader;
     }
     public override void OnStartClient()
     {
@@ -95,7 +95,7 @@ public class RigidbodyMovement : NetworkBehaviour
     private void GatherInputs(out MoveData md)
     {
         md = default;
-        inputReader.ReadInputs();
+        inputReader.ReadMovementInputs();
         float horizontal = inputReader.Horizontal;
         float vertical = inputReader.Vertical;
         if (horizontal == 0f && vertical == 0f)
