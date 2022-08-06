@@ -20,6 +20,5 @@ public class PlayerScoreboardCard : MonoBehaviour
     {
         playerName.text = data.playerName;
         playerScore.text = data.playerScore;    
-        //Debug.Log("Card updated playerTag: " + data.playerName + " Score: "  + data.playerScore);
     }
 }

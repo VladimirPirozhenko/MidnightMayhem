@@ -30,12 +30,15 @@ public class Player : NetworkBehaviour
     {
         base.OnStartServer();
         Tag = this.Owner.ClientId.ToString();
-        GameSession.Instance.RegisterPlayer(Tag, this);
+        GameSession.Instance.ServerRegisterPlayer(Tag, this);
     }
     public override void OnStopServer()
     {
         base.OnStopServer();
-        GameSession.Instance.UnregisterPlayerRpc(Tag);
+       // GameSession.Instance.RemoveOwnership();
+        GameSession.Instance.ServerUnregisterPlayer(Tag);
+       // GameSession.Instance.UnregisterPlayer(Tag);
+       // GameSession.Instance.RemovePlayerCardRpc(Tag);
     }
     public override void OnStartClient()
     {
@@ -46,6 +49,6 @@ public class Player : NetworkBehaviour
     public override void OnStopClient()
     {
         base.OnStopClient();
-        GameSession.Instance.UnregisterPlayerRpc(Tag);
+       // GameSession.Instance.UnregisterPlayerRpc(Tag);
     }
 }

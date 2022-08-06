@@ -12,7 +12,7 @@ public class GameSession : NetworkBehaviour
 
     [SerializeField]
     [SyncObject]
-    private readonly SyncDictionary<string, Player> players = new SyncDictionary<string, Player>();
+    public readonly SyncDictionary<string, Player> players = new SyncDictionary<string, Player>();
     public static GameSession Instance { get; private set; }
     public override void OnStartNetwork()
     {
@@ -28,48 +28,36 @@ public class GameSession : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void RegisterPlayer(string clientId, Player player)
+    public void ServerRegisterPlayer(string clientId, Player player)
     {
        
         players.Add(clientId, player);
-        UpdatePlayerCardsRpc();
+        ServerUpdatePlayerCards();
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void UnregisterPlayerRpc(string clientId)
-    {
-        UnregisterPlayer(clientId);
-    }
-
-    [ObserversRpc(IncludeOwner = true, BufferLast = true)]
-    public void UnregisterPlayer(string clientId)
+    public void ServerUnregisterPlayer(string clientId)
     {
         players.Remove(clientId);
-        RemovePlayerCardRpc(clientId);
-        UpdatePlayerCardsRpc();
+        ObserversUnregisterPlayer(clientId);
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void RemovePlayerCardRpc(string cardTag)
+    [ObserversRpc(IncludeOwner = true, BufferLast = false)]
+    public void ObserversUnregisterPlayer(string clientId)
     {
-        RemovePlayerCard(cardTag);
+        players.Remove(clientId);
+        RemovePlayerCard(clientId);
     }
 
-    [ObserversRpc(IncludeOwner = true, BufferLast = true)]
     private void RemovePlayerCard(string cardTag)
     {
         ViewManager.Instance.TryGetView(out ScoreboardView scoreboardView);
         scoreboardView.RemovePlayerCard(cardTag);
     }
-    //[ServerRpc(RequireOwnership = false)]
-    //public void UnregisterPlayer(string clientId)
-    //{
-    //    players.Remove(clientId);
-    //    UpdatePlayerCardsRpc();
-    //}
+
 
     [ServerRpc(RequireOwnership = false)]
-    public void UpdatePlayerCardsRpc()
+    public void ServerUpdatePlayerCards()
     {
         var playersDict = players.GetCollection(true);
         var playersArr = playersDict.Values.ToArray();
@@ -87,6 +75,7 @@ public class GameSession : NetworkBehaviour
     public void RefreshCardRpc(PlayerScoreboardCardData cardData)
     {
         RefreshCard(cardData);
+        ServerUpdatePlayerCards();
     }
 
     [ObserversRpc(IncludeOwner = true, BufferLast = true)]
