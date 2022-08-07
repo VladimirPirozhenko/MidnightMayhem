@@ -59,8 +59,6 @@ public class GameSession : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void ServerRefreshPlayerCards()
     {
-        var playersDict = players.GetCollection(true);
-        var playersArr = playersDict.Values.ToArray();
         List<PlayerScoreboardCardData> scoreboardCardsData = new List<PlayerScoreboardCardData>();
         foreach (var playerItem in players)
         {

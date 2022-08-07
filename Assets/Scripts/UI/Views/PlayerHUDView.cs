@@ -16,7 +16,8 @@ public class PlayerHUDView : BaseView
     {
         base.Init();
         transform.position = Vector3.zero;
-        GetComponent<RectTransform>().localPosition = Vector3.zero; 
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        rectTransform.localPosition = Vector3.zero;
     }
 
     public void UpdateScore(string score)

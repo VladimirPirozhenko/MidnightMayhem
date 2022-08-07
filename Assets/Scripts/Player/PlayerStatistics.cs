@@ -21,16 +21,12 @@ public class PlayerStatistics : NetworkBehaviour
     {
         player = GetComponent<Player>();    
     }
-    private void Start()
-    {
-        playerHUDView = Instantiate(playerHUDViewPrefab,Vector3.zero,Quaternion.identity);
-        playerHUDView.transform.SetParent(PlayerHUDCanvas.Instance.transform, false);
-        ViewManager.Instance.Add(playerHUDView);
-    }
-
     public override void OnStartClient()
     {
         base.OnStartClient();
+        playerHUDView = Instantiate(playerHUDViewPrefab, Vector3.zero, Quaternion.identity);
+        playerHUDView.transform.SetParent(PlayerHUDCanvas.Instance.transform, false);
+        ViewManager.Instance.Add(playerHUDView);
         playerHUDView.Show(false);  
         if (!IsOwner)
             return;

@@ -25,7 +25,6 @@ public class FollowingCamera : NetworkBehaviour
     {
         base.OnOwnershipClient(prevOwner);
         //joystick = FindObjectOfType<FixedJoystick>();
-        target = transform;
         cam = Camera.main;
         camTransform = cam.transform;   
         cam.gameObject.SetActive(true);

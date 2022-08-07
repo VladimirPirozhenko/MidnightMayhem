@@ -16,7 +16,7 @@ public class Ground : NetworkBehaviour
             {
                 PlayerStatistics playerStatistics = player.PlayerStatistics;
                 playerStatistics.ServerAddScore(1);
-                box.gameObject.SetActive(false);
+                box.ServerRemove();
             }
         }
     }
