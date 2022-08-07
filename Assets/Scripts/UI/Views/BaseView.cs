@@ -11,11 +11,12 @@ public abstract class BaseView : MonoBehaviour
     {
         IsInitialized = true;   
     }
+    virtual public void Destroy()
+    {
+        Destroy(this);
+    }
     public void Show(bool isActive)
     {
         gameObject.SetActive(isActive);
     }
-    // Создание,Уничтожение
-    // Show
-    // Action OnCreate
 }

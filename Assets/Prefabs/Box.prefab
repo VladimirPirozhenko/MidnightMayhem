@@ -29,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7553383540302927378}
   m_RootOrder: 0
@@ -52,6 +53,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -126,6 +128,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8849410233942241003}
   m_Father: {fileID: 0}
@@ -169,12 +172,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3175166918313743633}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a16965b7ca617894880341898550ce7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f97edda8ad919a49b0ca65e74bf61b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
+  _componentIndexCache: 255
   _addedNetworkObject: {fileID: 893758119260838992}
-  _networkObjectCache: {fileID: 893758119260838992}
+  _networkObjectCache: {fileID: 0}
 --- !u!114 &893758119260838992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,13 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NetworkObserver: {fileID: 0}
-  _prefabId: 7
-  _scenePathHash: 0
-  _sceneId: 0
-  _sceneNetworkObjects: []
   _networkBehaviours:
-  - {fileID: -6548432939247524067}
   - {fileID: -2398466653167354680}
   SceneTransformProperties:
     Position: {x: 0, y: 0, z: 0}
@@ -202,6 +199,11 @@ MonoBehaviour:
   _isNetworked: 1
   _isGlobal: 1
   _hasParentNetworkObjectAtEdit: 0
+  NetworkObserver: {fileID: 0}
+  _prefabId: 7
+  _scenePathHash: 0
+  _sceneId: 0
+  _sceneNetworkObjects: []
 --- !u!114 &-2398466653167354680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402926ef33e0a894d9fec352693988ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 1
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 893758119260838992}
   _networkObjectCache: {fileID: 893758119260838992}
   _graphicalObject: {fileID: 8849410233942241003}

@@ -8,24 +8,14 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private Vector3 spawnZoneSize;
     [SerializeField] private Vector3 spawnZoneCenter;
-    //[SerializeField] private BoxPool boxPoolPrefab;
     [SerializeField] private Box boxPrefab;
-   // private BoxPool boxPool;
     public void Spawn()
     {
         Vector3 spawnPos = RandomPositionInZone();
         spawnPos.y = 0;
         Box box = Instantiate(boxPrefab);
         box.transform.position = spawnPos;
-        InstanceFinder.ServerManager.Spawn(box.gameObject);
-        //if (IsServer)
-        //{
-        //boxPool = Instantiate(boxPoolPrefab);   
-        //Box box = boxPool.GetFromPool();
-        //box.transform.position = spawnPos;
-        //InstanceFinder.ServerManager.Spawn(box.gameObject);
-            
-        //}         
+        InstanceFinder.ServerManager.Spawn(box.gameObject);       
     }
     public Vector3 RandomPositionInZone()
     {

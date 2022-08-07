@@ -2,6 +2,7 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -32,7 +33,7 @@ public class GameSession : NetworkBehaviour
     {
        
         players.Add(clientId, player);
-        ServerUpdatePlayerCards();
+        ServerRefreshPlayerCards();
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -51,38 +52,44 @@ public class GameSession : NetworkBehaviour
 
     private void RemovePlayerCard(string cardTag)
     {
-        ViewManager.Instance.TryGetView(out ScoreboardView scoreboardView);
-        scoreboardView.RemovePlayerCard(cardTag);
+        ScoreboardView.Instance.RemovePlayerCard(cardTag);  
     }
 
 
     [ServerRpc(RequireOwnership = false)]
-    public void ServerUpdatePlayerCards()
+    public void ServerRefreshPlayerCards()
     {
         var playersDict = players.GetCollection(true);
         var playersArr = playersDict.Values.ToArray();
-        UpdatePlayerCards(playersArr);
+        List<PlayerScoreboardCardData> scoreboardCardsData = new List<PlayerScoreboardCardData>();
+        foreach (var playerItem in players)
+        {
+            Player player = playerItem.Value;
+            PlayerScoreboardCardData cardData = new PlayerScoreboardCardData(player.Tag, player.PlayerStatistics.Score.ToString());
+            scoreboardCardsData.Add(cardData);
+            
+        }
+        ObserversRefreshPlayerCards(scoreboardCardsData);
     }
 
     [ObserversRpc(IncludeOwner = true, BufferLast = true)]
-    private void UpdatePlayerCards(Player[] players)
+    private void ObserversRefreshPlayerCards(List<PlayerScoreboardCardData> cardsData)
     {
-        ViewManager.Instance.TryGetView(out ScoreboardView scoreboardView);
-        scoreboardView.RefreshPlayerCards(players);
+        
+        ScoreboardView.Instance.RefreshPlayerCards(cardsData);    
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void RefreshCardRpc(PlayerScoreboardCardData cardData)
+    public void ServerRefreshCardRpc(PlayerScoreboardCardData cardData)
     {
-        RefreshCard(cardData);
-        ServerUpdatePlayerCards();
+        ObserversRefreshCard(cardData);
+        ServerRefreshPlayerCards();
     }
 
     [ObserversRpc(IncludeOwner = true, BufferLast = true)]
-    private void RefreshCard(PlayerScoreboardCardData cardData)
+    private void ObserversRefreshCard(PlayerScoreboardCardData cardData)
     {
-        ViewManager.Instance.TryGetView(out ScoreboardView scoreboardView);
-        scoreboardView.RefreshPlayerCard(cardData);
+        ScoreboardView.Instance.RefreshPlayerCard(cardData);
     }
 
     public bool TryGetPlayerByTag(string tag,out Player player)

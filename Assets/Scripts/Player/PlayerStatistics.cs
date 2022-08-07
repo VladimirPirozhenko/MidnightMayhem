@@ -13,21 +13,29 @@ public class PlayerStatistics : NetworkBehaviour
 {
     [field: SerializeField] [field: SyncVar(OnChange = nameof(OnScoreChanged))] public int Score { get; private set; }
 
-    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private PlayerHUDView playerHUDViewPrefab;
+    PlayerHUDView playerHUDView; 
 
     private Player player;
     private void Awake()
     {
         player = GetComponent<Player>();    
     }
+    private void Start()
+    {
+        playerHUDView = Instantiate(playerHUDViewPrefab,Vector3.zero,Quaternion.identity);
+        playerHUDView.transform.SetParent(PlayerHUDCanvas.Instance.transform, false);
+        ViewManager.Instance.Add(playerHUDView);
+    }
+
     public override void OnStartClient()
     {
         base.OnStartClient();
-        scoreText.gameObject.SetActive(false);
+        playerHUDView.Show(false);  
         if (!IsOwner)
             return;
-        scoreText.text = Score.ToString();
-        scoreText.gameObject.SetActive(true);
+        playerHUDView.UpdateScore(Score.ToString());
+        playerHUDView.Show(true);
     }
     private void Update()
     {
@@ -55,8 +63,9 @@ public class PlayerStatistics : NetworkBehaviour
     }
     void OnScoreChanged(int prev,int next,bool onServer)
     {
-        scoreText.text = next.ToString();
+        playerHUDView.UpdateScore(next.ToString()); 
+        //scoreText.text = next.ToString();
         PlayerScoreboardCardData cardData = new PlayerScoreboardCardData(player.Tag, Score.ToString());
-        GameSession.Instance.RefreshCardRpc(cardData);
+        GameSession.Instance.ServerRefreshCardRpc(cardData);
     }
 }

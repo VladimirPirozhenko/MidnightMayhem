@@ -3,14 +3,20 @@ using UnityEngine;
 
 public class ScoreboardView : BaseView
 {
+    public static ScoreboardView Instance { get; private set; }
+
     [SerializeField] PlayerScoreboardCard cardPrefab;
     private readonly Dictionary<string,PlayerScoreboardCard> playerCards = new Dictionary<string, PlayerScoreboardCard>();
 
-    public void RefreshPlayerCards(Player[] players)
+    private void Awake()
     {
-        foreach (var player in players)
+        Instance = this;    
+    }
+
+    public void RefreshPlayerCards(List<PlayerScoreboardCardData> cardsData)
+    {
+        foreach (var cardData in cardsData)
         {
-            PlayerScoreboardCardData cardData = new PlayerScoreboardCardData(player.Tag, player.PlayerStatistics.Score.ToString());
             AddPlayerCard(cardData);
         }
     }
