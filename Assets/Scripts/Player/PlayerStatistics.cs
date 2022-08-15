@@ -14,9 +14,9 @@ public class PlayerStatistics : NetworkBehaviour
     [field: SerializeField] [field: SyncVar(OnChange = nameof(OnScoreChanged))] public int Score { get; private set; }
 
     [SerializeField] private PlayerHUDView playerHUDViewPrefab;
-    PlayerHUDView playerHUDView; 
+    private PlayerHUDView playerHUDView; 
 
-    private Player player;
+    [SyncVar] private Player player;
     private void Awake()
     {
         player = GetComponent<Player>();    
@@ -52,7 +52,7 @@ public class PlayerStatistics : NetworkBehaviour
        ObserversAddScore(amount);
     }
 
-    [ObserversRpc(BufferLast = true)]
+    [ObserversRpc(BufferLast = false,IncludeOwner = true)]
     public void ObserversAddScore(int amount)
     {
         Score += amount;

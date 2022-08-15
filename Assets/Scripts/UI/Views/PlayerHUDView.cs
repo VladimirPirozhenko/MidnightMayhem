@@ -5,12 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform))]    
 public class PlayerHUDView : BaseView
 {
-    public static PlayerHUDView Instance { get; private set; }
+    //public static PlayerHUDView Instance { get; private set; }
 
     [SerializeField] private TMP_Text scoreText;
     private void Awake()
     {
-        Instance = this;    
+        //Instance = this;    
     }
     public override void Init()
     {

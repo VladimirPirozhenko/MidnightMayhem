@@ -43,7 +43,7 @@ public class GameSession : NetworkBehaviour
         ObserversUnregisterPlayer(clientId);
     }
 
-    [ObserversRpc(IncludeOwner = true, BufferLast = false)]
+    [ObserversRpc(IncludeOwner = true, BufferLast = true)]
     public void ObserversUnregisterPlayer(string clientId)
     {
         players.Remove(clientId);

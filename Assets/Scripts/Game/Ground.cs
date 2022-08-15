@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 
-public class Ground : NetworkBehaviour
+public class Ground : MonoBehaviour
 {
     public void OnTriggerExit(Collider other)
     {
