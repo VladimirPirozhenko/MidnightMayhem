@@ -1,5 +1,4 @@
 # MidnightMayhem
-### Simple game using FishNet for networking
 ### MidnightMayhem is a simple game where you control the ball and should push cubes out of the arena <br />
 
 # Features
